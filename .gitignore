@@ -1,0 +1,8 @@
+* rescript
+.merlin
+.bsb.lock
+/lib/bs/
+/lib/js/
+*.gen.tsx
+*.bs.js
+node_modules

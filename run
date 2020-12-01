@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+run() {
+  day="day$1";
+
+  [[ -z "$1" ]] && echo "feck off" && exit 1;
+
+  execute() { node ./src/$day/*.bs.js; }
+
+  npx bsb -make-world && execute || echo "failed";
+}
+
+command="$1"; shift;
+case "$command" in
+  day) run "$@" ;;
+  watch) npx nodemon -e .re --exec "clear && ./run day $1"
+esac;
+
