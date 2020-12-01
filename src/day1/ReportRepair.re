@@ -1,4 +1,5 @@
 open Utils;
+let (@@) = Utils.(@@);
 
 let input_file_path = "./src/day1/input";
 
@@ -24,16 +25,19 @@ let rec findValid3Tuple = (target, ls) =>
     }
   };
 
-let printValidProduct = () => {
-  let input = input_file_path |> readFile |> parseIntList;
+let getInputList = parseIntList @@ readFile;
 
-  let (fst, snd) = input |> findValidPairs(2020) |> cata(() => (0, 0), id);
+let printValidProduct = () => {
+  let inputList = getInputList(input_file_path);
+
+  let (fst, snd) =
+    inputList |> findValidPairs(2020) |> cata(() => (0, 0), id);
   print_string("1: ");
   print_int(fst * snd);
   print_newline();
 
   let (fst, snd, thr) =
-    input |> findValid3Tuple(2020) |> cata(() => (0, 0, 0), id);
+    inputList |> findValid3Tuple(2020) |> cata(() => (0, 0, 0), id);
   print_string("2: ");
   print_int(fst * snd * thr);
   print_newline();
