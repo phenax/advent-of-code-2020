@@ -9,3 +9,16 @@ let parseIntList =
   Js.Array.map(int_of_string) @@
   Js.Array.filter(x => x != "") @@
   Js.String.split("\n");
+
+let toNone = () => None;
+let toSome = x => Some(x);
+
+let id = x => x;
+
+let cata = (fnN, fnS, o) =>
+  switch (o) {
+  | None => fnN()
+  | Some(v) => fnS(v)
+  };
+
+let fmap = fn => cata(toNone, toSome @@ fn);
