@@ -25,7 +25,7 @@ let rec findValid3Tuple = (target, ls) =>
   };
 
 let printValidProduct = () => {
-  let input = input_file_path |> readFile |> parseIntList |> Array.to_list;
+  let input = input_file_path |> readFile |> parseIntList;
 
   let (fst, snd) = input |> findValidPairs(2020) |> cata(() => (0, 0), id);
   print_string("1: ");

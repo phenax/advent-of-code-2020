@@ -6,8 +6,9 @@ let (@@) = (f, g, x) => f(g(x));
 let readFile = readFileSync_(_, "utf-8");
 
 let parseIntList =
-  Js.Array.map(int_of_string) @@
-  Js.Array.filter(x => x != "") @@
+  List.map(int_of_string) @@
+  List.filter(x => x != "") @@
+  Array.to_list @@
   Js.String.split("\n");
 
 let toNone = () => None;
