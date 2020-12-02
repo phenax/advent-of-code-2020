@@ -1,9 +1,6 @@
-[@bs.module "fs"]
-external readFileSync_: (string, string) => string = "readFileSync";
-
 let (@@) = (f, g, x) => f(g(x));
 
-let readFile = readFileSync_(_, "utf-8");
+let readFile = Node.Fs.readFileAsUtf8Sync;
 
 let toNone = () => None;
 let toSome = x => Some(x);
