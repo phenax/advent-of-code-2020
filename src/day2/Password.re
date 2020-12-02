@@ -14,7 +14,7 @@ let isValidPasswordPart2 = ((fst, snd, ch), password) => {
   let charList = Js.String.split("", password);
   [fst - 1, snd - 1]
   |> List.map(at(_, charList))
-  |> List.filter(eq(ch))
+  |> List.filter(cata(always(false), eq(ch)))
   |> List.length
   |> eq(1);
 };

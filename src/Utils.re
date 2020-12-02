@@ -12,7 +12,8 @@ let id = x => x;
 let always = (x, _) => x;
 let eq = (a, b) => a == b;
 let between = (min, max, x) => x >= min && x <= max;
-let at = (index: int, arr: array('a)) => arr[index];
+let at = (index, arr) =>
+  Js.Array.length(arr) > index ? Some(arr[index]) : None;
 
 let cata = (fnN, fnS, o) =>
   switch (o) {
