@@ -10,8 +10,13 @@ let isValidPasswordPart1 = ((min, max, ch)) =>
   Js.Array.filter(eq(ch)) @@
   Js.String.split("");
 
-let isValidPasswordPart2 = ((fst, snd, ch), pass) => {
-  false;
+let isValidPasswordPart2 = ((fst, snd, ch), password) => {
+  let charList = Js.String.split("", password);
+  [fst - 1, snd - 1]
+  |> List.map(at(_, charList))
+  |> List.filter(eq(ch))
+  |> List.length
+  |> eq(1);
 };
 
 // Parse input
