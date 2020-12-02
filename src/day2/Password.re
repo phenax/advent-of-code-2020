@@ -28,19 +28,17 @@ let getInputList = parseStringList @@ readFile;
 let printValidProduct = () => {
   let inputList = getInputList(input_file_path);
 
-  let matches =
+  let validPasswordCount =
     inputList
     |> List.map(parsePassword)
     |> List.filter(cata(always(false), always(true)))
-    |> List.map(cata(() => (0, 0, "", ""), id));
+    |> List.map(cata(() => (0, 0, "", ""), id))
+    |> List.filter(((mn, mx, ch, pass)) =>
+         isValidPassword((mn, mx, ch), pass)
+       )
+    |> List.length;
 
-  let result =
-    matches
-    |> List.filter(((min, max, ch, pass)) =>
-         isValidPassword((min, max, ch), pass)
-       );
-
-  print_int(List.length(result));
+  print_int(validPasswordCount);
 };
 
 print_newline();
