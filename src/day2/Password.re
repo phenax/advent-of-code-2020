@@ -4,11 +4,15 @@ let (@@) = Utils.(@@);
 let input_file_path = "./src/day2/input";
 
 // Check if valid
-let isValidPassword = ((min, max, ch)) =>
+let isValidPasswordPart1 = ((min, max, ch)) =>
   between(min, max) @@
   Js.Array.length @@
   Js.Array.filter(eq(ch)) @@
   Js.String.split("");
+
+let isValidPasswordPart2 = ((fst, snd, ch), pass) => {
+  false;
+};
 
 // Parse input
 let parsePassword =
@@ -28,17 +32,22 @@ let getInputList = parseStringList @@ readFile;
 let printValidProduct = () => {
   let inputList = getInputList(input_file_path);
 
-  let validPasswordCount =
+  let parsedResults =
     inputList
     |> List.map(parsePassword)
     |> List.filter(cata(always(false), always(true)))
-    |> List.map(cata(() => (0, 0, "", ""), id))
-    |> List.filter(((mn, mx, ch, pass)) =>
-         isValidPassword((mn, mx, ch), pass)
-       )
-    |> List.length;
+    |> List.map(cata(() => (0, 0, "", ""), id));
 
-  print_int(validPasswordCount);
+  let getValidPasswordCount = fn =>
+    List.length @@
+    List.filter(((mn, mx, ch, pass)) => fn((mn, mx, ch), pass));
+
+  print_string("1: ");
+  print_int(getValidPasswordCount(isValidPasswordPart1, parsedResults));
+  print_newline();
+  print_string("2: ");
+  print_int(getValidPasswordCount(isValidPasswordPart2, parsedResults));
+  print_newline();
 };
 
 print_newline();
