@@ -19,6 +19,7 @@ let cata = (fnN, fnS, o) =>
   };
 
 let fmap = fn => cata(toNone, toSome @@ fn);
+let foldOr = fn => cata(fn, id);
 let chain = fn => cata(toNone, fn);
 
 // Parsing
