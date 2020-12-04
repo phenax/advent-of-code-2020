@@ -3,11 +3,6 @@ let (@@) = Utils.(@@);
 
 let input_file_path = "./src/day4/input";
 
-let isOneOf = (ls, v) => ls->Belt.List.has(v, eq);
-
-let has = k =>
-  cata(() => false, _ => true) @@ List.find_opt(((key, _)) => key == k);
-
 let isValidPassport1 = passport => {
   let len = List.length(passport);
   switch (passport) {
@@ -25,13 +20,6 @@ let parseHeight =
     }
   }) @@
   parseRegexCapture(Js.Re.fromString("^(\d+)([a-z]+)$"));
-
-let testRegex = reg => Js.Re.test_(Js.Re.fromString(reg));
-
-let log = (v, x) => {
-  print_endline(v ++ ":::" ++ (x ? "1" : "----------"));
-  x;
-};
 
 let isFieldValid = p =>
   switch (p) {

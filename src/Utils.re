@@ -11,6 +11,7 @@ let eq = (a, b) => a == b;
 let between = (min, max, x) => x >= min && x <= max;
 let at = (index, arr) =>
   Js.Array.length(arr) > index ? Some(arr[index]) : None;
+let isOneOf = (ls, v) => ls->Belt.List.has(v, eq);
 
 let cata = (fnN, fnS, o) =>
   switch (o) {
@@ -36,3 +37,8 @@ let parseRegexCapture = regex =>
     Js.Re.captures,
   ) @@
   Js.Re.exec_(regex);
+
+// Has key in list of pairs
+let has = k => Belt.List.has(_, (k, ""), ((key, _), (k, _)) => key == k);
+
+let testRegex = reg => Js.Re.test_(Js.Re.fromString(reg));
