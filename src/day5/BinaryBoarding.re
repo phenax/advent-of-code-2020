@@ -41,7 +41,7 @@ let printValidProduct = () => {
   let g = (127, 7);
 
   print_string("1: ");
-  print_int(getMaxId((127, 7), inputList));
+  print_int(getMaxId(g, inputList));
   print_newline();
   print_string("2: ");
   print_newline();
