@@ -12,6 +12,8 @@ let between = (min, max, x) => x >= min && x <= max;
 let at = (index, arr) =>
   Js.Array.length(arr) > index ? Some(arr[index]) : None;
 let isOneOf = (ls, v) => ls->Belt.List.has(v, eq);
+let asymmetricDifference = (l1, l2) =>
+  l1 |> List.filter(item => !isOneOf(l2, item));
 
 let cata = (fnN, fnS, o) =>
   switch (o) {
@@ -42,3 +44,10 @@ let parseRegexCapture = regex =>
 let has = k => Belt.List.has(_, (k, ""), ((key, _), (k, _)) => key == k);
 
 let testRegex = reg => Js.Re.test_(Js.Re.fromString(reg));
+
+// Print list
+let printList = printItem =>
+  List.iter(id => {
+    printItem(id);
+    print_string(", ");
+  });
