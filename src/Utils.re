@@ -8,12 +8,12 @@ let toSome = x => Some(x);
 let id = x => x;
 let always = (x, _) => x;
 let eq = (a, b) => a == b;
+let not = (pred, x) => !pred(x);
 let between = (min, max, x) => x >= min && x <= max;
 let at = (index, arr) =>
   Js.Array.length(arr) > index ? Some(arr[index]) : None;
+
 let isOneOf = (ls, v) => ls->Belt.List.has(v, eq);
-let asymmetricDifference = (l1, l2) =>
-  l1 |> List.filter(item => !isOneOf(l2, item));
 
 let rec uniq =
   fun
@@ -22,6 +22,14 @@ let rec uniq =
   | [h, ...t] => List.concat([[h], uniq(t)]);
 
 let split = str => Array.to_list @@ Js.String.split(str);
+
+let asymmetricDifference = (l1, l2) =>
+  l1 |> List.filter(item => !isOneOf(l2, item));
+
+let intersection = (l1, l2) => {
+  let (l1, l2) = List.length(l1) < List.length(l2) ? (l2, l1) : (l1, l2);
+  l1 |> List.filter(isOneOf(l2));
+};
 
 let cata = (fnN, fnS, o) =>
   switch (o) {
@@ -63,3 +71,15 @@ let printList = (printItem, ls) => {
      });
   print_string("]");
 };
+
+let tap = (fn, x) => {
+  fn(x);
+  x;
+};
+
+let tapList = fn => tap(List.iter(fn));
+
+let foldFromHead = fn =>
+  fun
+  | [] => []
+  | [head, ...tail] => tail |> List.fold_left(fn, head);
